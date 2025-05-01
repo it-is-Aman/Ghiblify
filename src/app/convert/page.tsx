@@ -63,25 +63,45 @@ export default function Convert() {
         setIsUploading(true)
 
         try {
-            const response = await axios.post("/api/predictions", formdata, {
+            interface PredictionResponse {
+                id: string;
+            }
+
+            const response = await axios.post<PredictionResponse>("/api/predictions", formdata, {
                 headers: {
                     "Content-Type": "multipart/form-data"
-                }, responseType: "blob"  // Required to receive image data as Blob
+                }
             })
+            if (!response) {
+                setMessage("No response from API");
+                return
+            }
+            // console.log(response.data);
+            const id = response.data.id
+            let prediction;
+            do {
+                const pollRes = await fetch(`/api/predictions/${id}`);
+                prediction = await pollRes.json();
+                // console.log(prediction);
 
-            if (response) {
-                // console.log(response);
+                await new Promise((r) => setTimeout(r, 2000)); // wait 2s
+            } while (prediction.status !== "succeeded" && prediction.status !== "failed");
 
-                const imgBlob = response.data;  // Receive image blob from server
-                // console.log(response.data);
-                const imgUrl = URL.createObjectURL(imgBlob as Blob) // Convert blob to image URL
-                setResultImage(imgUrl);
+            if (prediction.status === "succeeded") {
+                const outputUrl = prediction.output[0];
+                // Fetch image or show preview
+                // console.log("Image URL:", outputUrl);
+
+                setResultImage(outputUrl);
                 setMessage("Conversion successful! 1 credit used.");
                 setCredits(prev => prev - 1)    //update credit
+
+            } else {
+                console.error("Prediction failed", prediction);
             }
 
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             setMessage("Upload failed. Try again.");
         } finally {
             setIsUploading(false)

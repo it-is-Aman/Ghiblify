@@ -41,40 +41,10 @@ export async function POST(req: NextRequest) {
         prompt_strength: 0.75
     };
 
-    const response = await replicate.run("aaronaftab/mirage-ghibli:166efd159b4138da932522bc5af40d39194033f587d9bdbab1e594119eae3e7f", { input });
-
-    // // reabable stream
-    // console.log(response);
-
-    // Replicate returns an array of URLs
-    const imageUrl = Array.isArray(response) ? response[0] : response;
-
-    if (!imageUrl) {
-        return NextResponse.json({ error: "No output from model" }, { status: 500 });
-    }
-
-    // Fetch the image from the output URL
-    const imageRes = await fetch(imageUrl);
-    // console.log("imageRes:::", imageRes);
-
-    // Convert the fetched image to binary buffer
-    const imageBuffer = await imageRes.arrayBuffer();
-    // console.log("imageBuffer:::", imageBuffer);
-
-    // Return the image buffer directly as webp response
-    return new Response(imageBuffer, {
-        headers: {
-            "Content-Type": "image/webp",
-            "Cache-Control": "no-store",
-        },
+    const prediction = await replicate.predictions.create({
+        version: "166efd159b4138da932522bc5af40d39194033f587d9bdbab1e594119eae3e7f", // Your model version
+        input
     });
 
-    // //=> output_0.webp written to disk
-    // let ImageName;
-    // for (const [index, item] of Object.entries(output)) {
-    //     ImageName = `output_${Date.now()}_${index}.webp`
-    //     const imagePath = join(process.cwd(), "public", "outputImg", ImageName);
-    //     await writeFile(imagePath, item);
-    // }
-
+    return NextResponse.json({ id: prediction.id });
 }
