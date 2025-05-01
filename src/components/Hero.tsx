@@ -29,13 +29,13 @@ const Hero = () => {
                     </div>
                 </div>
                 <div className="mt-16 rounded-xl overflow-hidden shadow-2xl max-w-4xl mx-auto animate-fade-in-slow">
-                    <div className=" grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className=" grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-100">
                         <div>
                             <Card className="border-2 border-dashed border-muted-foreground/25 rounded-lg overflow-hidden">
                                 <h2 className="text-xl font-semibold flex items-center justify-center">
                                     Original
                                 </h2>
-                                <AspectRatio ratio={3 / 4} className="bg-muted">
+                                <AspectRatio ratio={5/6} className="bg-muted">
                                     <Image src="/img/before.jpg" alt="Before - Original" fill={true} />
                                 </AspectRatio>
                             </Card>
@@ -45,8 +45,8 @@ const Hero = () => {
                                 <h2 className="text-xl font-semibold flex items-center justify-center">
                                     Ghibli Style Result
                                 </h2>
-                                <AspectRatio ratio={3 / 4} className="bg-muted">
-                                    <Image src="/img/after.webp" alt="After - Ghibli Style" fill={true} />
+                                <AspectRatio ratio={5/6} className="bg-muted">
+                                    <Image src="/img/after.png" alt="After - Ghibli Style" fill={true} />
                                 </AspectRatio>
                             </Card>
                         </div>
