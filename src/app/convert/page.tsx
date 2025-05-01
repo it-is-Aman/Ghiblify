@@ -101,8 +101,10 @@ export default function Convert() {
             }
 
         } catch (error) {
-            // console.log(error);
-            setMessage("Upload failed. Try again.");
+            if (process.env.NODE_ENV === "development") {
+                console.error(error);
+            }
+            setMessage("Upload failed. Please try again.");
         } finally {
             setIsUploading(false)
         }
