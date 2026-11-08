@@ -1,60 +1,48 @@
+import { Gift, ShieldCheck, Sparkles, Zap } from "lucide-react";
+import Container from "@/components/Container";
+import SectionHeading from "@/components/SectionHeading";
 
-import { Sparkles, ShieldCheck, Zap, Clock } from 'lucide-react';
+const features = [
+    {
+        icon: Sparkles,
+        title: "Ghibli-inspired look",
+        description: "Painterly backgrounds, gentle lighting and soft character shading that keeps your pose and composition.",
+    },
+    {
+        icon: ShieldCheck,
+        title: "Private by design",
+        description: "Photos are processed on the fly and never stored, by us or the AI provider.",
+    },
+    {
+        icon: Zap,
+        title: "Ready in seconds",
+        description: "A fast, distilled image model means no queues and no waiting minutes for a result.",
+    },
+    {
+        icon: Gift,
+        title: "Free every day",
+        description: "Sign in and get 10 conversions daily. No credit card, no subscription.",
+    },
+];
 
-const Features = () => {
+export default function Features() {
     return (
-        <section id='features' className="py-20">
-            <div className=" px-4 md:px-6">
-                <div className="flex flex-col items-center text-center space-y-4">
-                    <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
-                        Features
-                    </div>
-                    <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
-                        Everything You Need for Perfect Ghibli-Style Art
-                    </h2>
-                </div>
+        <section id="features" className="py-20 md:py-28">
+            <Container>
+                <SectionHeading eyebrow="Features" title="Everything you need, nothing you don't" />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
-                    <div className="flex flex-col items-center text-center p-6 rounded-xl border bg-card">
-                        <div className="p-2 rounded-full bg-primary/10 mb-4">
-                            <Sparkles className="h-6 w-6 text-primary" />
+                <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                    {features.map((feature) => (
+                        <div key={feature.title} className="rounded-2xl border bg-card p-6 shadow-sm transition-shadow hover:shadow-md">
+                            <div className="flex size-11 items-center justify-center rounded-xl bg-accent text-accent-foreground">
+                                <feature.icon className="size-5" />
+                            </div>
+                            <h3 className="mt-5 font-semibold">{feature.title}</h3>
+                            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{feature.description}</p>
                         </div>
-                        <h3 className="text-xl font-bold">Studio Ghibli Quality</h3>
-                        <p className="text-muted-foreground mt-2">
-                            Our AI has been trained on the iconic Ghibli art style to create stunning likenesses.
-                        </p>
-                    </div>
-                    <div className="flex flex-col items-center text-center p-6 rounded-xl border bg-card">
-                        <div className="p-2 rounded-full bg-primary/10 mb-4">
-                            <ShieldCheck className="h-6 w-6 text-primary" />
-                        </div>
-                        <h3 className="text-xl font-bold">100% Private</h3>
-                        <p className="text-muted-foreground mt-2">
-                            Your photos are processed securely and never shared with third parties.
-                        </p>
-                    </div>
-                    <div className="flex flex-col items-center text-center p-6 rounded-xl border bg-card">
-                        <div className="p-2 rounded-full bg-primary/10 mb-4">
-                            <Zap className="h-6 w-6 text-primary" />
-                        </div>
-                        <h3 className="text-xl font-bold">High Resolution</h3>
-                        <p className="text-muted-foreground mt-2">
-                            Get high-quality images perfect for social media, profiles, and personal use.
-                        </p>
-                    </div>
-                    <div className="flex flex-col items-center text-center p-6 rounded-xl border bg-card">
-                        <div className="p-2 rounded-full bg-primary/10 mb-4">
-                            <Clock className="h-6 w-6 text-primary" />
-                        </div>
-                        <h3 className="text-xl font-bold">Fast Turnaround</h3>
-                        <p className="text-muted-foreground mt-2">
-                            From upload to finished artwork in under a minute - no waiting for days.
-                        </p>
-                    </div>
+                    ))}
                 </div>
-            </div>
+            </Container>
         </section>
     );
-};
-
-export default Features;
+}

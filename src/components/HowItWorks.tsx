@@ -1,69 +1,50 @@
+import { Camera, Download, Wand2 } from "lucide-react";
+import Container from "@/components/Container";
+import SectionHeading from "@/components/SectionHeading";
 
-import { Camera, Palette, Download } from 'lucide-react';
+const steps = [
+    {
+        icon: Camera,
+        title: "Upload a photo",
+        description: "Pick a clear, well-lit photo of a person, pet or place. JPG, PNG and WebP all work.",
+    },
+    {
+        icon: Wand2,
+        title: "AI paints it",
+        description: "An image model redraws it with soft watercolor skies, warm light and hand-drawn detail.",
+    },
+    {
+        icon: Download,
+        title: "Download & share",
+        description: "Your Ghibli-style artwork is ready in seconds. Save it in high resolution.",
+    },
+];
 
-const HowItWorks = () => {
-  return (
-    <section id='how-it-works' className="py-20 bg-muted/50">
-      <div className="px-4 md:px-6">
-        <div className="flex flex-col items-center text-center space-y-4">
-          <div className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary">
-            Simple Process
-          </div>
-          <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-            How It Works
-          </h2>
-          <p className="max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-            Our platform transforms your selfies into Ghibli-inspired artwork in just
-            three simple steps.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-          <div className="flex flex-col items-center text-center p-6 rounded-xl glass-card">
-            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary mb-4">
-              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-white">
-                1
-              </div>
-            </div>
-            <div className="flex justify-center my-4">
-              <Camera className="h-12 w-12 text-primary" />
-            </div>
-            <h3 className="text-xl font-bold">Upload Your Photos</h3>
-            <p className="text-muted-foreground mt-2">
-              Upload high-quality selfie.
-            </p>
-          </div>
-          <div className="flex flex-col items-center text-center p-6 rounded-xl glass-card">
-            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary mb-4">
-              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-white">
-                2
-              </div>
-            </div>
-            <div className="flex justify-center my-4">
-              <Palette className="h-12 w-12 text-primary" />
-            </div>
-            <h3 className="text-xl font-bold">Our AI Gets to Work</h3>
-            <p className="text-muted-foreground mt-2">
-              The AI magic takes ~2 minutes.
-            </p>
-          </div>
-          <div className="flex flex-col items-center text-center p-6 rounded-xl glass-card">
-            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary mb-4">
-              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-white">
-                3
-              </div>
-            </div>
-            <div className="flex justify-center my-4">
-              <Download className="h-12 w-12 text-primary" />
-            </div>
-            <h3 className="text-xl font-bold">Get Amazing Anime Art</h3>
-            <p className="text-muted-foreground mt-2">
-              Once your picture is ready, we &apos; ll give you amazing Ghibli-style artwork!
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
+export default function HowItWorks() {
+    return (
+        <section id="how-it-works" className="border-y bg-muted/60 py-20 md:py-28">
+            <Container>
+                <SectionHeading
+                    eyebrow="How it works"
+                    title="Three steps to your own Ghibli scene"
+                    description="No editing skills needed. The whole thing takes less time than making tea."
+                />
 
-export default HowItWorks;
+                <ol className="mt-14 grid gap-6 md:grid-cols-3">
+                    {steps.map((step, i) => (
+                        <li key={step.title} className="relative rounded-2xl border bg-card p-7 shadow-sm">
+                            <div className="flex items-center justify-between">
+                                <div className="flex size-12 items-center justify-center rounded-xl bg-secondary text-primary">
+                                    <step.icon className="size-6" />
+                                </div>
+                                <span className="font-display text-4xl font-semibold text-border">0{i + 1}</span>
+                            </div>
+                            <h3 className="mt-6 text-lg font-semibold">{step.title}</h3>
+                            <p className="mt-2 leading-relaxed text-muted-foreground">{step.description}</p>
+                        </li>
+                    ))}
+                </ol>
+            </Container>
+        </section>
+    );
+}
